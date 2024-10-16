@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 #TurfBooking is a web-based application that allows users to search for, book, and manage turfs or sports fields. The application is built using the MERN stack (MongoDB, Express, React, Node.js) and provides a platform for users, managers, and admins to interact with sports facilities.
 Features
@@ -24,3 +25,6 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 link to the demo : https://turf-booking-jpyejwdc8-gopikrishnans-projects-5946dc1b.vercel.app
+=======
+# TBA-client
+>>>>>>> 2945b8457f3939076d8f4b072460055462dd71c7
