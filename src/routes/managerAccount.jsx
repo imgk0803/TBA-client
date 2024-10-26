@@ -42,13 +42,13 @@ export default function Accountadmin(){
                 confirm : confirm
             }
             const res = await axiosInstance.patch('/api/user/updatepwd' , body)
-            setmessage(res.data)
+            setmessage(res.data.message)
             setTimeout(()=>{
                 setconfirm('');
                 setcurrent('')
                 setpassword('')
                 setmessage('')
-            },2000)
+            },4000)
             
 
         }
@@ -73,7 +73,7 @@ export default function Accountadmin(){
             email : email , 
             phone : phone
            }
-           const res = await axiosInstance.patch('https://turfbooking-backend.onrender.com/api/user/updateprofile' , body)
+           const res = await axiosInstance.patch('/api/user/updateprofile' , body)
            localStorage.setItem('user',JSON.stringify(res.data.updateduser))
         }
         catch(err){
@@ -101,9 +101,9 @@ export default function Accountadmin(){
                     
                            <div className="flex flex-col w-full gap-4 p-3">
                             {
-                                payments && payments.length > 0 ? (payments.map(item=>(
+                                payments && payments.length > 0 ? (payments.map((item,index)=>(
                                      
-                                <div className="flex flex-row justify-between items-center border shadow-lg rounded-md p-3">
+                                <div key={index} className="flex flex-row justify-between items-center border shadow-lg rounded-md p-3">
                                     <div className="flex flex-col"><span>date</span><span>{item.created && item.created.slice(0,10)}</span></div>
                                     <div className="flex flex-col"><span>price</span><span>{item.amount}</span></div>
                                     <div className="flex flex-col"><span>status</span>{item.p_status}</div>

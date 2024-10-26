@@ -1,7 +1,8 @@
-import axios from "axios";
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../utils/axiosInstance";
+import { filterTimeslots } from "../hooks/useAvailableSlots";
 export default function ManagerDashboard(){
     const navigate = useNavigate()
     const[bookings , setBookings] =useState([])
@@ -9,11 +10,16 @@ export default function ManagerDashboard(){
     const [seen, setSeen] = useState(false)
     const [confrim , setConfirm] = useState(false)
     const[courtid , setCourtId] = useState('')
-    const [selectedCourt  , setSelectedCourt]= useState(null)
     const[selectedBooking , setOneBooking] = useState('')
     const token = localStorage.getItem('token')
     const user = JSON.parse(localStorage.getItem('user'))
-    const [today ,setToday ]= useState('')
+    const [date ,setdate] = useState('')
+    const [time , setTime ] = useState()
+    const [allbookings , setAllBookings] = useState()
+    const [reload , setReload] = useState(false)
+    const currentDate = new Date()
+    const hours = currentDate.getHours()
+    const formattedDate = new Date(currentDate).toISOString().split("T")[0];
     useEffect(()=>{
             axiosInstance.get(`/api/manager/getmanagerbookings/${user._id}`,{
                headers : {
@@ -21,18 +27,79 @@ export default function ManagerDashboard(){
            }})
            .then(res=>{setBookings(res.data)
            })
+           .catch(err=>console.log(err));
+           axiosInstance.get("/api/user/bookings")
+           .then(res=>setAllBookings(res.data.bookings))
            .catch(err=>console.log(err))
       
-    },[seen])
-   const bookingToday = bookings.filter(booking=>booking.date.slice(0,10) === today)
-    function togglePop (booking) {
-        setSelectedCourt(booking.court.timeslot)
+    },[reload])
+    const bookingToday = bookings.filter(booking=>booking.date.slice(0,10) === date)
+    const togglePop = async (booking)=> {
         setOneBooking(booking._id)
         setCourtId(booking.court._id)
-        setSeen(!seen);
+        const confirmedBookings = allbookings.filter(booking => {
+            return booking.status !== 'canceled'
+        })
+       const courtBooking = confirmedBookings.filter(booking =>{
+            return booking.court._id === courtid
+          })
+        const todaysbookings = courtBooking.filter(item=>{
+        const bookingDate = new Date(item.date).toISOString().split('T')[0];
+        return bookingDate === date})
+      const modTodaysBooking = todaysbookings.map(book => ({
+        start: book.timeslot.start,
+        end: book.timeslot.end
+      }));
+      console.log("courtbooking" , courtBooking)
+      console.log("todays booking", todaysbookings)
+      console.log("modtodays booking", modTodaysBooking)
+      const allTimeslots = [
+                         
+                          { start: 6, end: 7 },
+                          { start: 7, end: 8 },
+                          { start: 8, end: 9 },
+                          { start: 9, end: 10 },
+                          { start: 10, end: 11 },
+                          { start: 11, end: 12 },
+                          { start: 12, end: 13 },
+                          { start: 13, end: 14 },
+                          { start: 14, end: 15 },
+                          { start: 15, end: 16 },
+                          { start: 16, end: 17 },
+                          { start: 17, end: 18 },
+                          { start: 18, end: 19 },
+                          { start: 19, end: 20 },
+                          { start: 20, end: 21 },
+                          { start: 21, end: 22 },
+                          { start: 22, end: 23 },
+                          { start: 23, end: 24 }
+      ];
+      let timeslots = allTimeslots
+      if(date === formattedDate ){
+        timeslots = allTimeslots.filter(ts=>ts.start>=hours)
+      }
+      const newArray = filterTimeslots(timeslots , modTodaysBooking)
+      console.log("timeslot ::: ",newArray)
+      setTimeslot(newArray)
+      setSeen(!seen)
        
   
     }
+    const handleDate =(e)=>{
+        e.preventDefault();
+        try{
+            console.log("e",e.target.value)
+            setdate(e.target.value)
+            
+            
+        }
+        catch(err){
+          console.log(err.message)
+        }
+    }
+    console.log("date:::",date)
+    console.log("formatted ::: ", formattedDate)
+    console.log("timeselected::" , time)
     function confirmcancel(id){
         setOneBooking(id)
         setConfirm(!confrim)
@@ -43,22 +110,25 @@ export default function ManagerDashboard(){
     }
     const updateBooking=async()=>{
       try{
-        const {start ,end } = timeSlot;
+        const {start ,end } = time;
         const body = {
             
                 start,
-                 end
+                 end,
+                 date
             
         }
-        await axiosInstance.patch(`/api/manager/court/${courtid}/booking/${selectedBooking}`,body,{
+        axiosInstance.patch(`/api/manager/court/${courtid}/booking/${selectedBooking}`,body,{
             headers : {
                 'Authorization' : `Bearer ${token}`
             }
         })
         .then(res=>{
-            if(res.data === "The Booking Is Already Cancelled"){
-                alert('The Booking Is Already Cancelled')
+            if(res.data.success === false){
+                alert(res.data.message)
             }
+            console.log(res.data.message)
+            setReload(!reload)
         })
         setSeen(!seen)
       }
@@ -75,7 +145,10 @@ export default function ManagerDashboard(){
                     'Authorization' : `Bearer ${token}`
                 }
             })
-            .then(res=>{console.log('booking cancelled')})
+            .then(res=>{
+                alert(res.data.message)
+                setReload(!reload)
+            })
             setConfirm(!confirm)
         
         }
@@ -89,7 +162,7 @@ export default function ManagerDashboard(){
            <h1 className="text-4xl">Manage Bookings</h1>
             <div className="flex flex-col items-center justify-center gap-2">
             <label className="p-1 text-md font-semibold dark:text-gray-300">Choose a date</label>
-            <input onChange={(e)=>{setToday(e.target.value)}}  className="outline-gray-400  rounded-md outline-none dark:bg-gray-700 dark:text-gray-300" type="date" />
+            <input onChange={handleDate} onBlur={handleDate} value={date}   className="outline-gray-400  rounded-md outline-none dark:bg-gray-700 dark:text-gray-300" type="date" />
             </div>
           
             <div className="flex flex-col p-3 w-full  gap-3">
@@ -164,9 +237,9 @@ export default function ManagerDashboard(){
                                     <button onClick={close}>x</button>
                                     </div>
                                   
-                                    <select onChange={(e)=>{setTimeslot(JSON.parse(e.target.value))}} className="p-1 dark:bg-gray-700" name="timslot" id="">
+                                    <select onChange={(e)=>{setTime(JSON.parse(e.target.value))}} className="p-1 dark:bg-gray-700" name="timslot" id="">
                                         <option value="placeholder">Select a Time</option>
-                                        {selectedCourt && selectedCourt.filter((ts) => !ts.booked).map((ts) =>{
+                                        {timeSlot && timeSlot.map((ts,index) =>{
                             let start = ts.start + "am"
                             let end = ts.end + "am"
                            
@@ -190,9 +263,7 @@ export default function ManagerDashboard(){
                              return (
                           <option
                        
-                          className="p-1 text-sm font-mono hover:bg-green-400 rounded-md" key={ts._id} value={JSON.stringify({start : ts.start, end : ts.end
-                          
-                          })}>
+                          className="p-1 text-sm font-mono hover:bg-green-400 rounded-md" key={index} value={JSON.stringify(ts)}>
                           {start} - {end}
                           </option>
                         )})

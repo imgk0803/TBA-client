@@ -50,7 +50,7 @@ export default function Account(){
                 confirm : confirm
             }
             const res = await axiosInstance.patch('/api/user/updatepwd' , body)
-            setmessage(res.data)
+            setmessage(res.data.message)
             setTimeout(()=>{
                 setconfirm('');
                 setcurrent('')
@@ -119,7 +119,7 @@ export default function Account(){
                           { view === "editprofile" && (<>
                                    <div className="flex flex-col gap-3 p-5 justify-center items-center w-full">
                                           <h2 className="p-3 text-2xl border-b-2">Update password</h2>
-                                          <form onSubmit={updatePassword} className=" flex flex-col w-1/2 gap-3 p-3  rounded-md shadow-sm items-start justify-center" action="submit">
+                                          <form onSubmit={updatePassword} className=" flex flex-col  border border-slate-400 w-1/2 gap-3 p-10  rounded-md shadow-sm items-start justify-center" action="submit">
                                             <label htmlFor="current">current password</label>
                                             <input onChange={(e)=>{setcurrent(e.target.value)}} value={current} type="text" className="w-full dark:bg-gray-900 outline-none border rounded-md shadow-sm p-1" />
                                             <label htmlFor="password">new password</label>
@@ -133,7 +133,7 @@ export default function Account(){
                                             <button type="submit" className="bg-green-500 text-center mt-2 w-full text-white p-2 rounded-md">update password</button>
                                           </form>
                                           <h2 className="p-3 text-2xl border-b-2">Update profile</h2>
-                                         <form onSubmit={editProfile} className="bg-slate-200 flex  dark:bg-gray-900 flex-col  w-1/2 gap-2 p-3 border rounded-md shadow-sm items-start justify-center" action="submit">
+                                         <form onSubmit={editProfile} className=" flex  dark:bg-gray-900 flex-col  w-1/2 gap-2 p-10 border border-slate-400 rounded-md shadow-sm items-start justify-center" action="submit">
                                                <label htmlFor="username">username</label>
                                                <input onChange={(e)=>(setUsername(e.target.value))} className="w-full  dark:bg-gray-900 outline-none border rounded-md shadow-sm p-1" value={userName} type="text" />
                                                <label htmlFor="username">email</label>

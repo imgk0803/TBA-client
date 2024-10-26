@@ -3,7 +3,8 @@ export const  averageRating = (review)=>{
         const star = review.reduce((acc,rev)=>
             acc + rev.rating,0
             )
-           return star/review.length
+           const average =  star/review.length
+           return parseFloat(average.toFixed(1))
     }
     return 0
        

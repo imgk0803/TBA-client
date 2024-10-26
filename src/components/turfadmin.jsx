@@ -3,19 +3,21 @@ import { useState ,useEffect } from "react"
 import axios from "axios"
 import { averageRating } from "../hooks/useAverageRating"
 import axiosInstance from "../utils/axiosInstance";
-export default function TurfAdmin({_id,city,dist,image,court}){
+export default function TurfAdmin({_id,city,dist,title,image,court}){
     const navigate = useNavigate();
     const role = localStorage.getItem('role')
     const [review ,setReview] = useState([])
     const [ratings ,setRatings] = useState()
-    const[title ,setTitle] = useState('')
+    const newCourt = court.map(c=>c.sport)
+    const sports = [... new Set(newCourt) ]
     useEffect(()=>{
-         axiosInstance.get(`/api/user/getoneturf/${_id}`)
-         .then(res => {
-            setReview(averageRating(res.data.reviews));
-            setRatings(res.data.reviews.length)
-            setTitle(res.data.title)
+        axiosInstance.get(`/api/user/getreview`)
+        .then(res => {
+           const turfreview = res.data.review.filter(rev => rev.turf === _id)
+           setReview(averageRating(turfreview));
+           setRatings(turfreview.length)
 
+        
          })
 
     })
@@ -30,8 +32,8 @@ export default function TurfAdmin({_id,city,dist,image,court}){
             <span className="dark:text-gray-300">{city},{dist}</span>
             <ul className="flex flex-row justify-start items-center gap-1 ">
                 {
-                    court.map(c=>(
-                        <li className="border dark:text-gray-300 shadow-lg rounded-xl text-xs p-1" key={c._id}>{c.sport}</li>   
+                    sports.map((sport , index) =>(
+                        <li className="border dark:text-gray-300 shadow-lg rounded-xl text-xs p-1" key={index}>{sport}</li>   
                     ))
                    
                 }</ul>

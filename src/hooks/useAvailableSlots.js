@@ -1,7 +1,6 @@
-export const filterAvailableTimeslots = (allTimeslots, bookedTimeslots) => {
-    return allTimeslots.filter(timeslot => {
-      return !bookedTimeslots.some(booked => 
-        booked.timeslot.start === timeslot.start && booked.timeslot.end === timeslot.end
-      );
-    });
+export const filterTimeslots = (allTimeslots, bookedTimeslots) => {
+    return allTimeslots.filter(ts => 
+      !bookedTimeslots.some(book => book.start === ts.start && book.end === ts.end)
+    );
   };
+  

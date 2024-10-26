@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom"
 import { useEffect ,useState } from "react";
-import axios from "axios";
 import TurfAdmin from "../components/turfadmin";
 import AddManager from "../components/addManager";
 import axiosInstance from "../utils/axiosInstance";
+import LoadingScreen from "../components/loadingScreen";
 export default function AdminDashboard(){
     const role = localStorage.getItem('role')
     const [turfs,setturf] = useState([]);
@@ -18,7 +18,7 @@ export default function AdminDashboard(){
     useEffect(()=>{
        axiosInstance.get("/api/user/turf")
        .then(res =>{
-           setturf(res.data)
+           setturf(res.data.turfs)
        })
     },[])
     const handleSearch =() =>{
@@ -26,40 +26,6 @@ export default function AdminDashboard(){
            return  new RegExp(searchTerm, 'i').test(turf.title)
         })
         setList(filtered)
-    }
-    const updateslot = async () => {
-    setLoading(true)
-    setMessage('')
-    const token = localStorage.getItem('token');
-    
-    try {
-        const response = await axiosInstance.post("/api/admin/update-timeslots", null, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        setMessage(response.data.message)
-    } catch (error) {
-        console.error(error);
-    }
-};
-
-    const resetslot = async()=>{
-        setLoading(true)
-        setMessage('')
-        const token = localStorage.getItem('token')
-        try{
-           const response =  await axiosInstance.post("/api/admin/reset-slots",null,{
-                headers : {
-                    'Authorization' : `Bearer ${token}`
-                }
-            })
-            setMessage(response.data.message)
-        }
-        catch(err){
-            console.log(err)
-        }
-        
     }
     return(
         <>
@@ -70,10 +36,8 @@ export default function AdminDashboard(){
                         <button onClick={handleSearch}><span className="material-symbols-outlined pt-1 text-slate-400">search</span></button>
                     </div>
                  
-                  <Link to={'/root/createturf'} className="p-2 text-center bg-green-500 rounded-md text-white w-full">Add turf</Link>
-                  <button disabled={role !== 'admin'} onClick={togglePop} className="p-2 bg-green-500 rounded-md text-white w-full">add manager</button>
-                  <button disabled={role !== 'admin'} className="p-2 bg-green-500 rounded-md text-white w-full" onClick={updateslot}>UpdateSlots</button>
-                  <button disabled={role !== 'admin'} className="p-2 bg-green-500 rounded-md text-white w-full" onClick={resetslot}>ResetSlots</button>
+                  <Link to={'/root/createturf'} className="p-2 mx-5 text-center bg-green-500 rounded-md text-white w-full">Add turf</Link>
+                  <button disabled={role !== 'admin'} onClick={togglePop} className="p- mx-5 bg-green-500 rounded-md text-white w-full">add manager</button>
                 </div>
                 {
                turfListing.length > 0 &&( <>
@@ -105,9 +69,7 @@ export default function AdminDashboard(){
                             className="mt-4 bg-red-500 text-white px-4 py-2 rounded">Close</button>
                         </div>
                     ) : (
-                        <div className="flex flex-col items-center justify-center bg-white w-1/2 h-1/2 rounded-lg p-4">
-                        <p>Loading...</p>
-                        </div>
+                        <LoadingScreen/>
                     )}
                     </div>
                 )}

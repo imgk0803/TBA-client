@@ -94,7 +94,9 @@ useEffect(()=>{
         <>
         <div className="grid grid-cols-2 p-3">
              <div className="flex flex-col gap-3 pt-2 px-5">
-             <button onClick={()=>{navigate(-1)}} className="w-10 bg-green-500 rounded-md text-white">Back</button>
+                <button onClick={()=>{navigate(-1)}} className="bg-green-500 text-white  w-16 pt-1 rounded-md">
+                 <span class="material-symbols-outlined">arrow_back</span>
+                </button>
                
                 {
                     bookings && bookings.map(item => (

@@ -23,7 +23,7 @@ export const getSortedTurfs = (city) => async (dispatch) => {
       `/api/user/turfs?lat=${lat}&lon=${lon}`
     );
     
-    dispatch(setSortedTurfs({sorted : response.data,
+    dispatch(setSortedTurfs({sorted : response.data.turfs,
       city : city
     }));
   } catch (err) {

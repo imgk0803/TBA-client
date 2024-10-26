@@ -50,7 +50,7 @@ export default function Accountadmin(){
                 confirm : confirm
             }
             const res = await axiosInstance.patch('/api/user/updatepwd' , body)
-            setmessage(res.data)
+            setmessage(res.data.message)
             setTimeout(()=>{
                 setconfirm('');
                 setcurrent('')
@@ -93,7 +93,7 @@ export default function Accountadmin(){
                 <button onClick={()=>setview("transaction")} className="bg-green-500 rounded-md shadow-md text-white  w-40">Transactions</button>
                 <button onClick={()=>setview("editprofile")} className="bg-green-500 rounded-md shadow-md text-white w-40">Edit profile</button>
                  <button className="bg-green-500 rounded-md shadow-md text-white  w-40" onClick={()=>{navigate('/root/admindashboard')}}>Dashboard</button>
-                 <button onClick={()=>{navigate('/signin',{new:true})}}  className="bg-green-500 rounded-md shadow-md text-white w-40">Logout</button>
+                 <button onClick={logOut}  className="bg-green-500 rounded-md shadow-md text-white w-40">Logout</button>
              </div>
              <div className="flex flex-grow m-0 min-h-screen">
                 {
@@ -101,9 +101,9 @@ export default function Accountadmin(){
                     
                            <div className="flex flex-col w-full gap-4 p-3">
                             {
-                                payments && payments.length > 0 ? (payments.map(item=>(
+                                payments && payments.length > 0 ? (payments.map((item,index)=>(
                                      
-                                <div className="flex flex-row justify-between items-center border shadow-lg rounded-md p-3">
+                                <div key={index} className="flex flex-row justify-between items-center border shadow-lg rounded-md p-3">
                                     <div className="flex flex-col"><span>date</span><span>{item.created && item.created.slice(0,10)}</span></div>
                                     <div className="flex flex-col"><span>price</span><span>{item.amount}</span></div>
                                     <div className="flex flex-col"><span>status</span>{item.p_status}</div>

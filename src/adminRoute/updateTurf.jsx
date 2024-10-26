@@ -15,10 +15,10 @@ export default function UpdateTurf(){
     useEffect(()=>{
         axiosInstance.get(`/api/user/getoneturf/${turfid}`)
         .then(res=>{
-            setCourts(res.data.court)
-            setTitle(res.data.title)
-            setDescription(res.data.description)
-            setImage(res.data.image)
+            setCourts(res.data.turf.court)
+            setTitle(res.data.turf.title)
+            setDescription(res.data.turf.description)
+            setImage(res.data.turf.image)
             
         })
     },[])

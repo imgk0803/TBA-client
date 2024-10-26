@@ -8,7 +8,8 @@ export default function MyBookings(){
         axiosInstance.get("/api/user/bookings")
         .then(res=> {
             console.log(res)
-        setbookings(res.data.bookings.filter(item =>user._id === item.user ));
+        const userBookings = res.data.bookings.filter(item =>user._id === item.user );
+        setbookings(userBookings.filter(booking=>booking.status === 'confirmed'))
        
     } )     
     },[])

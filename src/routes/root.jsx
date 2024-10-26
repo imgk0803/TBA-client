@@ -5,6 +5,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { getSortedTurfs } from "../features/sortedTurfs/sortedTurfsSlice";
 import { switchTheme } from "../features/theme/themeSlice";
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import XIcon from '@mui/icons-material/X';
+import GoogleIcon from '@mui/icons-material/Google';
 
 export default function Root(){
   const navigate = useNavigate()
@@ -57,7 +61,7 @@ export default function Root(){
   }
   return(
     <div>
-    <header className="z-10 h-16 flex flex-row dark:bg-gray-900 dark:text-slate-500 justify-between items-center  p-2 shadow-sm fixed bg-white w-full">
+    <header className="z-10 h-16 flex flex-row dark:bg-gray-950 dark:text-slate-500 justify-between items-center  p-2 shadow-sm fixed bg-white w-full">
         <h1 className="text-2xl font-mono pl-5  text-green-500">BOOKmyTURF</h1>
         <div className="relative flex flex-col justify-start items-start">
           <div className="flex flex-row items-center border w-52 shadow-md  dark:border-gray-700 h-6 rounded-md">
@@ -90,19 +94,19 @@ export default function Root(){
             <ul className="flex flex-row justify-center items-center text-lg  gap-10 text-md text-slate-500 font-semibold pr-10 ">
                 <Link to={'home'}>
                 <li className="flex flex-col items-center justify-center ">
-                <span className="material-symbols-outlined dark:text-gray-300 ">stadium</span>
-                <span className="text-xs font-light  dark:text-gray-300">Home</span></li></Link>
+                <span className="material-symbols-outlined dark:text-gray-300 hover:text-green-500 ">stadium</span>
+                <span className="text-xs font-light  dark:text-gray-300   ">Home</span></li></Link>
                 <Link to={'mybookings'}>
                 <li className="flex flex-col items-center justify-center ">
 
-                  <span className="material-symbols-outlined  dark:text-gray-300">sports</span>
-                  <span className="text-xs font-light  dark:text-gray-300">Bookings</span>
+                  <span className="material-symbols-outlined  dark:text-gray-300  hover:text-green-500 ">sports</span>
+                  <span className="text-xs font-light  dark:text-gray-300 ">Bookings</span>
                   </li></Link>
                 <button onClick={roleBasedRoute}>
                 <li className="flex flex-col items-center justify-center ">
 
-                      <span className="material-symbols-outlined  dark:text-gray-300">person</span>
-                      <span className="text-xs font-light  dark:text-gray-300">Account</span>
+                      <span className="material-symbols-outlined  dark:text-gray-300  hover:text-green-500 ">person</span>
+                      <span className="text-xs font-light  dark:text-gray-300   ">Account</span>
                     </li>
                 </button>
                 <button onClick={darkMode}>
@@ -124,53 +128,51 @@ export default function Root(){
             </ul>
         </nav>
     </header>
-    <main className="pl-4 min-h-screen pt-20 dark:bg-gray-900 dark:text-white w-screen">
+    <main className="pl-4 min-h-screen pt-20 dark:bg-gray-900 dark:text-white w-screen ">
     <Outlet/>
     </main>
-    <footer className="h-16 flex justify-between items-center p-4 border-t-2 dark:bg-gray-900 dark:border-slate-600 w-screen ">
-  {/* Left Section: App Name */}
-  <div className="flex flex-col">
-    <h1 className="text-2xl font-mono dark:text-green-400 text-green-600 m-0">BOOKmyTURF</h1>
-    <span className="text-sm text-slate-500">A sports community app</span>
-  </div>
+    <hr className=" border-gray-200  dark:border-gray-700 " />
 
-  {/* Right Section: Social Media Links */}
-  <div className="flex items-center space-x-4">
-    {/* Font Awesome Social Media Icons */}
-    <a
-      href="https://www.facebook.com"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-gray-400 hover:text-blue-500"
-    >
-      <i class="fab fa-facebook">facebook</i>
-    </a>
-    <a
-      href="https://www.twitter.com"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-gray-400 hover:text-blue-400"
-    >
-      <i class="fab fa-twitter">twitter</i>
-    </a>
-    <a
-      href="https://www.instagram.com"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-gray-400 hover:text-pink-500"
-    >
-     <i class="fab fa-instagram">instagram</i>
-    </a>
-    <a
-      href="https://www.linkedin.com"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-gray-400 hover:text-blue-700"
-    >
-       <i class="fab fa-linkedin">linkedin</i>
-    </a>
-  </div>
-</footer>
+      <footer className="bg-white  shadow dark:bg-gray-900 pt-3">
+          <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+              <div className="sm:flex sm:items-center sm:justify-between">
+                  <a href="#" className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+                  <h1 className="text-2xl font-mono pl-5  text-green-500">BOOKmyTURF</h1>
+                  </a>
+                  <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+                      <li>
+                          <a href="#" className="hover:underline me-4 md:me-6">About</a>
+                      </li>
+                      <li>
+                          <a href="#" className="hover:underline me-4 md:me-6">Privacy Policy</a>
+                      </li>
+                      <li>
+                          <a href="#" className="hover:underline me-4 md:me-6">Licensing</a>
+                      </li>
+                      <li>
+                          <a href="#" className="hover:underline">Contact</a>
+                      </li>
+                  </ul>
+                  <ul className="flex flex-wrap items-center mb-6 text-sm font-medium gap-2 text-gray-500 sm:mb-0 dark:text-gray-400">
+                       <li>
+                             <InstagramIcon/>
+                       </li>
+                        <li>
+                             <FacebookIcon/>
+                        </li>
+                        <li>
+                              <XIcon/>
+                        </li>
+                        <li>
+                              <GoogleIcon/>
+                        </li>
+                  </ul>
+              </div>
+              <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+              <span className="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="#" class="hover:underline">BOOKmyTURF™</a>. All Rights Reserved.</span>
+          </div>
+      </footer>
+
 
 
 

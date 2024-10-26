@@ -20,7 +20,7 @@ export default function Turf({_id,title,city,dist,image,court}){
     })
     return(
         <>
-           <article className=" flex flex-col gap-2 p-5 bg-inherit dark:bg-gray-950 text-slate-800 border  dark:border-slate-800 shadow-lg  rounded-md w-72 mt-4 hover:scale-110 transition-all duration-300" >
+           <article className=" flex flex-col gap-2 p-5 bg-inherit dark:bg-gray-950 text-slate-800 border  dark:border-slate-800 shadow-lg  rounded-md w-72 mt-4 hover:scale-105 transition-all duration-300" >
             
             <img className="h-52 object-cover rounded-lg"src={image} alt="" />
             <div className="flex flex-row justify-between font-semibold items-center">
