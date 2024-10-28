@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit"
-import axios from "axios";
 import axiosInstance from "../../utils/axiosInstance";
 export const sortedTurfSlice = createSlice({
   name : 'turfs',

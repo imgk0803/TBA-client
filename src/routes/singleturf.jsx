@@ -16,6 +16,7 @@ export default function TurfSingle() {
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
   const [isLoading, setLoading] = useState(true);
+  const [sports, setSports] = useState();
 
   function togglePop() {
     setSeen(!seen);
@@ -24,6 +25,7 @@ export default function TurfSingle() {
   useEffect(() => {
     axiosInstance.get(`/api/user/getoneturf/${turfid}`).then((res) => {
       setTurf(res.data.turf);
+      setSports(res.data.turf.court.map((c) => c.sport));
       setLatitude(res.data.turf.location.coordinates[1]);
       setLongitude(res.data.turf.location.coordinates[0]);
       setLoading(false);
@@ -35,6 +37,7 @@ export default function TurfSingle() {
       setRating(averageRating(turfreview));
     });
   }, [seen]);
+  const sport = [...new Set(sports)];
 
   return (
     <>
@@ -46,14 +49,18 @@ export default function TurfSingle() {
             <div className="h-4 bg-gray-300 rounded-md w-1/2"></div>
             <div className="h-64 md:h-80 bg-gray-300 rounded-md w-full"></div>
             <div className="pt-5">
-              <span className="text-lg font-semibold dark:text-gray-400 p-1">Sports Available</span>
+              <span className="text-lg font-semibold dark:text-gray-400 p-1">
+                Sports Available
+              </span>
               <ul className="flex flex-wrap gap-3 mt-3">
                 <li className="h-8 bg-gray-300 rounded-xl w-1/4"></li>
                 <li className="h-8 bg-gray-300 rounded-xl w-1/4"></li>
               </ul>
             </div>
             <div className="pt-5">
-              <span className="text-lg font-semibold dark:text-gray-400 p-1">Facilities</span>
+              <span className="text-lg font-semibold dark:text-gray-400 p-1">
+                Facilities
+              </span>
               <ul className="flex flex-wrap gap-3">
                 <li className="h-8 bg-gray-300 rounded-xl w-1/4"></li>
                 <li className="h-8 bg-gray-300 rounded-xl w-1/4"></li>
@@ -84,34 +91,60 @@ export default function TurfSingle() {
           </button>
           <section className="flex flex-col lg:flex-row gap-8 p-4 md:p-8">
             <div className="w-full lg:w-1/2 text-slate-600 flex flex-col gap-4 p-4 rounded-lg shadow-md bg-white dark:bg-gray-800">
-              <h1 className="text-2xl md:text-3xl font-semibold dark:text-gray-200">{turf.title}</h1>
+              <h1 className="text-2xl md:text-3xl font-semibold dark:text-gray-200">
+                {turf.title}
+              </h1>
               <div className="flex items-center gap-4">
-                <span className="text-lg font-semibold dark:text-gray-400">{turf.city}</span>
+                <span className="text-lg font-semibold dark:text-gray-400">
+                  {turf.city}
+                </span>
                 <Link to={"/root/reviews"} state={{ review }}>
                   <div className="flex items-center gap-1 text-yellow-500">
-                    <span>{averageStarRating}</span>
-                    <span className="material-symbols-outlined text-sm">star</span>({noOfReviews})
+                    <span className="text-black dark:text-white">
+                      {averageStarRating}
+                    </span>
+                    <span className="material-symbols-outlined text-sm">
+                      star
+                    </span>
+                    <span className="text-black dark:text-white">
+                      ({noOfReviews})
+                    </span>
                   </div>
                 </Link>
               </div>
               <p className="text-gray-500">{turf.description}</p>
-              <img className="w-full h-60 md:h-80 object-cover rounded-md" src={turf.image} alt="" />
+              <img
+                className="w-full h-60 md:h-80 object-cover rounded-md"
+                src={turf.image}
+                alt=""
+              />
               <div>
-                <h3 className="text-lg font-semibold dark:text-gray-200">Sports Available</h3>
+                <h3 className="text-lg font-semibold dark:text-gray-200">
+                  Sports Available
+                </h3>
                 <ul className="flex flex-wrap gap-2 mt-2">
-                  {turf.court &&
-                    turf.court.map((c) => (
-                      <li key={c._id} className="px-3 py-1 bg-green-100 text-green-700 rounded-xl dark:bg-green-900 dark:text-green-200">
-                        {c.sport}
+                  {sport &&
+                    sport.map((c) => (
+                      <li
+                        key={c._id}
+                        className="px-3 py-1 bg-green-100 text-green-700 rounded-xl dark:bg-green-900 dark:text-green-200"
+                      >
+                        {c}
                       </li>
                     ))}
                 </ul>
               </div>
               <div className="mt-4">
-                <h3 className="text-lg font-semibold dark:text-gray-200">Facilities</h3>
+                <h3 className="text-lg font-semibold dark:text-gray-200">
+                  Facilities
+                </h3>
                 <ul className="flex gap-2 mt-2">
-                  <li className="px-3 py-1 bg-blue-100 text-blue-700 rounded-xl dark:bg-blue-900 dark:text-blue-200">Drinking</li>
-                  <li className="px-3 py-1 bg-blue-100 text-blue-700 rounded-xl dark:bg-blue-900 dark:text-blue-200">Restroom</li>
+                  <li className="px-3 py-1 bg-blue-100 text-blue-700 rounded-xl dark:bg-blue-900 dark:text-blue-200">
+                    Drinking
+                  </li>
+                  <li className="px-3 py-1 bg-blue-100 text-blue-700 rounded-xl dark:bg-blue-900 dark:text-blue-200">
+                    Restroom
+                  </li>
                 </ul>
               </div>
             </div>
@@ -123,11 +156,15 @@ export default function TurfSingle() {
                 Book Now
               </Link>
               <div className="p-4 rounded-lg shadow-md bg-white dark:bg-gray-800">
-                <h4 className="text-lg font-semibold dark:text-gray-200">Timing</h4>
+                <h4 className="text-lg font-semibold dark:text-gray-200">
+                  Timing
+                </h4>
                 <p className="dark:text-gray-400">6AM-12PM</p>
               </div>
               <div className="p-4 rounded-lg shadow-md bg-white dark:bg-gray-800">
-                <h4 className="text-lg font-semibold dark:text-gray-200">Location</h4>
+                <h4 className="text-lg font-semibold dark:text-gray-200">
+                  Location
+                </h4>
                 <p className="dark:text-gray-400">
                   {turf.city}, {turf.dist}, Kerala
                 </p>

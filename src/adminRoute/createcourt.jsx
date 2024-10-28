@@ -13,8 +13,13 @@ export default function Addcourt(){
     const [description , setDescription] = useState('')
     const[price , setPrice] =useState()
     const [size , setSize] = useState('')
+    const [message , setmessage] = useState()
     const [isLoading , setLoading] = useState(false)
     const token = localStorage.getItem('token')
+    const closeLoadingScreen=()=>{
+      setLoading(false)
+      setmessage(null)
+    }
     const handleSubmit=async(e)=>{
         e.preventDefault()
     try{
@@ -31,8 +36,7 @@ export default function Addcourt(){
             }
          })
          .then(res=>{
-          console.log(res)
-          setLoading(false)
+          setmessage(res.data.message)
           setDescription('')
           setSize('')
           setSport('')
@@ -45,66 +49,89 @@ export default function Addcourt(){
     }
 
     }
-    return(
-        <>{ isLoading ? <LoadingScreen/> : 
-        <section className="p-5 dark:bg-gray-900">
-        <button className="bg-green-500 p-1 text-white rounded-md" onClick={()=>{navigate(-1)}}>Back</button>
-        <div className="max-w-md mx-auto dark:bg-gray-950 bg-white shadow-md rounded-md p-6">
-            <h2 className="text-2xl font-semibold text-center mb-6">Add Court to <span>{turfname}</span></h2>
-            <form onSubmit={handleSubmit} className="space-y-4 dark:text-gray-300">
-                <div>
-                    <label className="block dark:text-gray-300 text-sm font-medium text-gray-700">
-                        Sport:
-                    </label>
-                   <select onChange={(e)=>{setSport(e.target.value)}}  className="mt-1 dark:text-gray-300 outline-none block w-full dark:bg-gray-900 border border-gray-300 rounded-md p-2" name="" id="" autoFocus>
-                     <option value="Football">Football</option>
-                     <option value="Cricket">Cricket</option>
-                     <option value="Badminton">Badminton</option>
-                     <option value="Volleyball">Volleyball</option>
-                   </select>
-                </div>
-                <div>
-                    <label className="block dark:text-gray-300 text-sm font-medium text-gray-700">
-                        Description:
-                    </label>
-                    <textarea onChange={(e)=>{setDescription(e.target.value)}}
-                        className="mt-1 dark:text-gray-300 dark:bg-gray-900 block w-full border border-gray-300 rounded-md p-2"
-                        rows="3"
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm dark:text-gray-300 font-medium text-gray-700">
-                        Price:
-                    </label>
-                    <input
-                    onChange={(e)=>{setPrice(e.target.value)}}
-                        type="number"
-                        className="mt-1 block dark:text-gray-300 dark:bg-gray-900 w-full border border-gray-300 rounded-md p-2"
-                        required
-                    />
-                </div>
-                <div>
+    return (
+        <>
+          {isLoading ? (
+            <LoadingScreen message={message} onclick={closeLoadingScreen} />
+          ) : (
+            <section className="p-5 dark:bg-gray-900 min-h-screen">
+              <button
+                onClick={() => navigate(-1)}
+                className="bg-green-500 text-white w-16 pt-1 rounded-md shadow-md hover:bg-green-600 transition duration-200">
+                <span className="material-symbols-outlined">arrow_back</span>
+             </button>
+      
+              <div className="max-w-lg mx-auto mt-8 dark:bg-gray-950 bg-white shadow-lg rounded-md p-6">
+                <h2 className="text-2xl font-semibold text-center mb-6 dark:text-gray-300 text-gray-800">
+                  Add Court to <span className="font-bold">{turfname}</span>
+                </h2>
+      
+                <form onSubmit={handleSubmit} className="space-y-5 dark:text-gray-300">
+                  <div>
                     <label className="block text-sm font-medium dark:text-gray-300 text-gray-700">
-                        Size:
+                      Sport:
+                    </label>
+                    <select
+                      onChange={(e) => setSport(e.target.value)}
+                      className="mt-1 block w-full border dark:bg-gray-900 border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+                      autoFocus
+                    >
+                      <option value="Football">Football</option>
+                      <option value="Cricket">Cricket</option>
+                      <option value="Badminton">Badminton</option>
+                      <option value="Volleyball">Volleyball</option>
+                    </select>
+                  </div>
+      
+                  <div>
+                    <label className="block text-sm font-medium dark:text-gray-300 text-gray-700">
+                      Description:
+                    </label>
+                    <textarea
+                      onChange={(e) => setDescription(e.target.value)}
+                      className="mt-1 block w-full border dark:bg-gray-900 border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+                      rows="3"
+                      placeholder="Enter court description"
+                    />
+                  </div>
+      
+                  <div>
+                    <label className="block text-sm font-medium dark:text-gray-300 text-gray-700">
+                      Price:
                     </label>
                     <input
-                    onChange={(e)=>{setSize(e.target.value)}}
-                        type="text"
-                        className="mt-1 block w-full border dark:bg-gray-900 border-gray-300 rounded-md p-2"
-                        placeholder="Enter the Size of the Court  eg : 11x11 , 1x1"
-                        required
+                      onChange={(e) => setPrice(e.target.value)}
+                      type="number"
+                      className="mt-1 block w-full border dark:bg-gray-900 border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+                      placeholder="Enter the price"
+                      required
                     />
-                </div>
-                <button
+                  </div>
+      
+                  <div>
+                    <label className="block text-sm font-medium dark:text-gray-300 text-gray-700">
+                      Size:
+                    </label>
+                    <input
+                      onChange={(e) => setSize(e.target.value)}
+                      type="text"
+                      className="mt-1 block w-full border dark:bg-gray-900 border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+                      placeholder="Enter the Size of the Court (e.g., 11x11, 1x1)"
+                      required
+                    />
+                  </div>
+      
+                  <button
                     type="submit"
-                    className="w-full bg-green-500 text-white py-2 rounded-md font-semibold hover:bg-blue-600"
-                >
+                    className="w-full bg-green-500 text-white py-3 rounded-md font-semibold hover:bg-green-600 transition-colors"
+                  >
                     Add Court
-                </button>
-            </form>
-        </div>
-        </section>
-           
-         } </>
-    )
+                  </button>
+                </form>
+              </div>
+            </section>
+          )}
+        </>
+      );
+      
 }
