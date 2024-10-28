@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { averageRating } from "../hooks/useAverageRating";
 import axiosInstance from "../utils/axiosInstance";
 export default function TurfAdmin({

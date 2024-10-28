@@ -1,6 +1,5 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react";
-import axios from "axios"
 import UpdateCourt from "./courtUpdate";
 import axiosInstance from "../utils/axiosInstance";
 import LoadingScreen from "../components/loadingScreen";
@@ -48,7 +47,7 @@ export default function UpdateTurf(){
       })
       .then(res=>{
         setMessage(res.data.message)
-        console.log('turf updated')})
+       })
      }
         
      catch(err){

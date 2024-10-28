@@ -33,7 +33,6 @@ export default function Booking() {
       setturfname(res.data.turf.title);
     });
   }, []);
-  console.log("the courts", courts);
   const handlechange = async (e) => {
     e.preventDefault();
     try {
@@ -87,22 +86,15 @@ export default function Booking() {
         { start: 23, end: 24 },
       ];
       let timeslots = allTimeslots;
-      console.log("hours:::", hours);
       if (date === formattedDate) {
         timeslots = allTimeslots.filter((ts) => ts.start >= hours);
       }
-      console.log("timeslot ::: ", timeslots);
       const newArray = filterTimeslots(timeslots, modTodaysBooking);
       settimeslot(newArray);
     } catch (err) {
       console.log(err.message);
     }
   };
-  console.log("booking toady", bookingtoday);
-  console.log("bookings", bookings);
-  console.log("available ti,eslots", timeslot);
-  console.log("seleceted date", date);
-  console.log("current date", formattedDate);
   const handleTime = async (e) => {
     e.preventDefault();
     try {
@@ -110,9 +102,6 @@ export default function Booking() {
       settime(time);
     } catch (err) {}
   };
-  console.log(selectedCourt);
-  console.log(date);
-  console.log(time);
   const addBooking = async (e) => {
     e.preventDefault();
     if (!selectedCourt || !date || !time) {
@@ -122,7 +111,6 @@ export default function Booking() {
       return;
     }
     try {
-      console.log("selectedcourt", selectedCourt);
       const courtid = selectedCourt._id;
       const userid = JSON.parse(localStorage.getItem("user"))._id;
       const price = selectedCourt.price;
@@ -161,10 +149,8 @@ export default function Booking() {
       console.log("error::", err);
     }
   };
-  console.log("message", message);
   const removeBooking = async (id) => {
     try {
-      console.log(id);
       dispatch(removeFromCart(id));
       const res = await axiosInstance.delete(`/api/user/deleteBooking/${id}`);
       const bookingform = document.getElementsByName("bookingform");

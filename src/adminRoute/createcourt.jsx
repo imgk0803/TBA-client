@@ -1,5 +1,4 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import axiosInstance from "../utils/axiosInstance"
 import LoadingScreen from "../components/loadingScreen"

@@ -17,7 +17,6 @@ export default function MyBookings() {
   const [bookings, setbookings] = useState([]);
   useEffect(() => {
     axiosInstance.get("/api/user/bookings").then((res) => {
-      console.log(res);
       const userBookings = res.data.bookings.filter(
         (item) => user._id === item.user
       );

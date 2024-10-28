@@ -59,9 +59,6 @@ export default function ManagerDashboard() {
       start: book.timeslot.start,
       end: book.timeslot.end,
     }));
-    console.log("courtbooking", courtBooking);
-    console.log("todays booking", todaysbookings);
-    console.log("modtodays booking", modTodaysBooking);
     const allTimeslots = [
       { start: 6, end: 7 },
       { start: 7, end: 8 },
@@ -87,22 +84,17 @@ export default function ManagerDashboard() {
       timeslots = allTimeslots.filter((ts) => ts.start >= hours);
     }
     const newArray = filterTimeslots(timeslots, modTodaysBooking);
-    console.log("timeslot ::: ", newArray);
     setTimeslot(newArray);
     setSeen(!seen);
   };
   const handleDate = (e) => {
     e.preventDefault();
     try {
-      console.log("e", e.target.value);
       setdate(e.target.value);
     } catch (err) {
       console.log(err.message);
     }
   };
-  console.log("date:::", date);
-  console.log("formatted ::: ", formattedDate);
-  console.log("timeselected::", time);
   function confirmcancel(id) {
     setOneBooking(id);
     setConfirm(!confrim);
@@ -135,8 +127,6 @@ export default function ManagerDashboard() {
         )
         .then((res) => {
           setMessage(res.data.message);
-
-          console.log(res.data.message);
         });
       setSeen(!seen);
     } catch (err) {

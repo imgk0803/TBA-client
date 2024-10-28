@@ -183,7 +183,7 @@ export default function Root() {
         <hr className="my-6 border-gray-200 dark:border-gray-700" />
 
         <span className="block text-center text-sm text-gray-500 dark:text-gray-400">
-          © 2023{" "}
+          © 2024{" "}
           <a href="#" className="hover:underline">
             BOOKmyTURF™
           </a>

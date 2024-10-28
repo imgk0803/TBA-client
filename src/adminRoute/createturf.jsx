@@ -42,7 +42,7 @@ export default function AddTurf(){
         })
         .then(res=>{
           setmessage(res.data.message)
-          console.log("turf added")})
+        })
      }
      catch(err){
         console.log(err)
