@@ -62,8 +62,8 @@ export default function Root() {
 
   return (
     <div>
-      <header className="z-10 h-16 flex flex-row items-center justify-between px-4 py-2 fixed bg-white dark:bg-gray-950 w-full shadow-md">
-        <h1 className="text-xl md:text-2xl font-mono text-green-500">
+      <header className="z-10 h-44 md:h-16 flex md:flex-row flex-col items-center justify-between px-4 py-2 fixed bg-white dark:bg-gray-950 w-full shadow-md">
+        <h1 className="text-2xl mt-2 md:m-0 md:text-2xl font-mono text-green-500">
           BOOKmyTURF
         </h1>
 
@@ -98,7 +98,7 @@ export default function Root() {
         </div>
 
         <nav>
-          <ul className="flex flex-row items-center gap-4 md:gap-8 text-gray-700 dark:text-gray-300 text-md font-semibold">
+          <ul className="flex flex-row items-center gap-8 md:gap-8 text-gray-700 dark:text-gray-300 text-md font-semibold">
             <Link to={"home"}>
               <li className="flex flex-col items-center justify-center hover:text-green-500">
                 <span className="material-symbols-outlined">stadium</span>

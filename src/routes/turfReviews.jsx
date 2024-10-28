@@ -6,7 +6,7 @@ export default function TurfReview() {
   const reviews = location.state.review || null;
   return (
     <>
-      <div className=" dark:bg-slate-900">
+      <div className="mt-10 md:mt-0 dark:bg-slate-900">
         <div className="p-4">
           <button
             onClick={() => navigate(-1)}

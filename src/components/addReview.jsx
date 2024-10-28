@@ -22,13 +22,13 @@ export default function Review({ toggle, turf_id }) {
   };
   return (
     <>
-      <div className="fixed inset-0 w-full h-full flex items-center justify-center bg-black bg-opacity-70 z-50 ">
-        <div className="w-1/2 bg-white dark:bg-gray-700 p-5 rounded-lg">
-          <h2 className="text-2xl dark:text-gray-300 text-center">
-            rate turfname
+      <div className="fixed inset-0 w-full h-full flex items-center justify-center bg-black px-4 md:px-0 bg-opacity-70 z-50 ">
+        <div className="w-full md:w-1/2 bg-white dark:bg-gray-700 p-5 rounded-lg">
+          <h2 className="text-sm md:text-2xl dark:text-gray-300 text-center">
+            Rate Turf
           </h2>
           <div className="flex items-center mb-4 dark:bg-gray-700 bg-white">
-            <span className="mr-2 dark:bg-gray-700 dark:text-gray-300">
+            <span className="text-3xl md:text-md mr-2 dark:bg-gray-700 dark:text-gray-300">
               Rating:
             </span>
             {[1, 2, 3, 4, 5].map((star) => (

@@ -100,7 +100,7 @@ export default function Checkout() {
       {isLoading ? (
         <LoadingScreen message={message} onclick={closeLoadingScreen} />
       ) : (
-        <>
+        <div className="mt-28 md:mt-0">
           <button
             onClick={(e) => {
               navigate(-1);
@@ -165,7 +165,7 @@ export default function Checkout() {
               </table>
             )}
           </div>
-        </>
+        </div>
       )}
     </>
   );

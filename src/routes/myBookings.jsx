@@ -27,7 +27,7 @@ export default function MyBookings() {
     });
   }, []);
   return (
-    <div className="flex flex-col gap-5 p-5">
+    <div className="flex flex-col gap-5 mt-24 md:mt-0 p-5">
       <h2 className="text-3xl font-bold text-center mb-4 dark:text-slate-300 sm:text-2xl md:text-3xl">
         My Bookings
       </h2>
@@ -37,26 +37,23 @@ export default function MyBookings() {
             .fill(0)
             .map((_, index) => {
               return (
-                <div
-                  key={index}
-                  className="flex flex-col border border-gray-300 p-4 rounded-lg shadow-md dark:bg-gray-800 bg-gray-200 animate-pulse"
-                >
+                <div className="flex flex-col border border-gray-300 p-4 rounded-lg shadow-md dark:bg-gray-900 bg-white transition-transform duration-300">
                   <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-2">
-                    <div className="w-48 h-6 bg-gray-400 rounded-md"></div>
-                    <div className="flex flex-col md:items-end gap-1 text-right">
-                      <div className="w-24 h-6 bg-gray-400 rounded-md"></div>
-                      <div className="w-16 h-4 bg-gray-300 rounded-md"></div>
+                    <div className="bg-gray-200 animate-pulse h-6 w-3/4 rounded"></div>
+                    <div className="flex flex-col items-start gap-1 text-right">
+                      <div className="bg-gray-200 animate-pulse h-5 w-20 rounded"></div>
+                      <div className="bg-gray-200 animate-pulse h-4 w-24 rounded"></div>
                     </div>
                   </div>
-                  <div className="flex flex-col md:flex-row justify-between items-center mb-2">
-                    <div className="w-24 h-4 bg-gray-300 rounded-md"></div>
-                    <div className="w-12 h-6 bg-gray-400 rounded-md"></div>
+                  <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-2">
+                    <div className="bg-gray-200 animate-pulse h-4 w-20 rounded"></div>
+                    <div className="bg-gray-200 animate-pulse h-6 w-16 rounded"></div>
                   </div>
-                  <div className="flex flex-row justify-between items-start md:items-center text-center">
-                    <div className="w-32 h-4 bg-gray-300 rounded-md"></div>
-                    <div className="flex flex-row gap-3 justify-center items-center">
-                      <div className="w-12 h-6 bg-gray-400 rounded-md"></div>
-                      <div className="w-32 h-4 bg-gray-300 rounded-md"></div>
+                  <div className="flex flex-col md:flex-row justify-between items-start md:items-center text-center">
+                    <div className="bg-gray-200 animate-pulse h-4 w-20 rounded"></div>
+                    <div className="flex flex-col md:flex-row gap-3 justify-center items-start md:items-center">
+                      <div className="bg-gray-200 animate-pulse h-6 w-24 rounded"></div>
+                      <div className="bg-gray-200 animate-pulse h-4 w-28 rounded"></div>
                     </div>
                   </div>
                 </div>
@@ -80,7 +77,7 @@ export default function MyBookings() {
                   <h3 className="text-xl font-semibold dark:text-gray-300 text-gray-800 sm:text-lg md:text-xl">
                     {index + 1}. {item.court.turf.title}
                   </h3>
-                  <div className="flex flex-col md:items-end gap-1 text-right">
+                  <div className="flex flex-col items-start  gap-1 text-right">
                     <Suspense fallback={<div>Loading...</div>}>
                       <span className="text-lg font-semibold dark:text-gray-300 text-gray-800 sm:text-base md:text-lg">
                         <SportsFootballIcon /> {item.court.sport}
@@ -91,7 +88,7 @@ export default function MyBookings() {
                     </span>
                   </div>
                 </div>
-                <div className="flex flex-col md:flex-row justify-between items-center mb-2">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-2">
                   <Suspense fallback={<div>Loading...</div>}>
                     <span className="text-gray-600 dark:text-gray-400 sm:text-sm">
                       <CalendarMonthIcon /> {item.date.slice(0, 10)}
@@ -103,13 +100,13 @@ export default function MyBookings() {
                     </span>
                   </Suspense>
                 </div>
-                <div className="flex flex-row justify-between items-start md:items-center text-center">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center text-center">
                   <Suspense fallback={<div>Loading...</div>}>
                     <span className="text-gray-600 dark:text-gray-400 sm:text-sm">
                       <AccessTimeIcon /> {start} - {end}
                     </span>
                   </Suspense>
-                  <div className="flex flex-row gap-3 justify-center items-center">
+                  <div className="flex flex-col md:flex-row gap-3 justify-center items-start md:items-center">
                     <span
                       className={`text-lg font-semibold ${
                         item.status === "confirmed"

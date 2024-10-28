@@ -7,7 +7,7 @@ const MapComponent = ({ latitude, longitude }) => {
     <MapContainer
       center={[latitude, longitude]}
       zoom={13}
-      style={{ height: "100%", width: "100%" }}
+      style={{ height: "100%", width: "400px" }}
       className="relative z-0"
     >
       <TileLayer

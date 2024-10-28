@@ -163,6 +163,7 @@ export default function Booking() {
 
   return (
     <>
+     <div className="mt-28 md:mt-0">
       <button
         onClick={() => navigate(-1)}
         className="bg-green-500 text-white w-16 pt-1 rounded-md shadow-md hover:bg-green-600 transition duration-200"
@@ -171,7 +172,7 @@ export default function Booking() {
       </button>
       <section className="grid grid-cols-1 md:grid-cols-2 p-10 dark:bg-gray-900">
         <div className="p-5 bg-white rounded-lg shadow-lg dark:bg-gray-950">
-          <h2 className="p-1 font-semibold text-3xl text-gray-800 dark:text-gray-300">
+          <h2 className="p-1 font-semibold text-lg md:text-3xl text-gray-800 dark:text-gray-300">
             {turfname}
           </h2>
           <span className="p-1 text-lg text-gray-600 dark:text-gray-400">
@@ -200,7 +201,7 @@ export default function Booking() {
                 </option>
                 {courts.map((court) => (
                   <option
-                    className="font-semibold dark:text-gray-300 dark:bg-gray-700"
+                    className="font-semibold  dark:text-gray-300 dark:bg-gray-700"
                     key={court._id}
                     value={JSON.stringify(court)}
                   >
@@ -363,6 +364,7 @@ export default function Booking() {
           </div>
         </div>
       </section>
+      </div>
     </>
   );
 }

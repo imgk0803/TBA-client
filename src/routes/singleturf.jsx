@@ -28,13 +28,13 @@ export default function TurfSingle() {
       setSports(res.data.turf.court.map((c) => c.sport));
       setLatitude(res.data.turf.location.coordinates[1]);
       setLongitude(res.data.turf.location.coordinates[0]);
-      setLoading(false);
     });
     axiosInstance.get("/api/user/getreview").then((res) => {
       const turfreview = res.data.review.filter((rev) => rev.turf === turfid);
       setReview(turfreview);
       setNoOfReviews(turfreview.length);
       setRating(averageRating(turfreview));
+      setLoading(false)
     });
   }, [seen]);
   const sport = [...new Set(sports)];
@@ -42,7 +42,7 @@ export default function TurfSingle() {
   return (
     <>
       {isLoading ? (
-        <div className="flex flex-col md:flex-row gap-3 p-5 animate-pulse">
+        <div className="flex flex-col md:flex-row gap-3 p-5 mt-36 md:mt-0 animate-pulse">
           <div className="w-full md:w-1/2 pl-4 md:pl-16 text-slate-600 flex flex-col gap-2">
             <div className="h-10 bg-gray-300 rounded-md w-3/4"></div>
             <div className="h-6 bg-gray-300 rounded-md w-1/4"></div>
@@ -83,6 +83,7 @@ export default function TurfSingle() {
         </div>
       ) : (
         <>
+        <div className="mt-28 md:mt-0">
           <button
             onClick={() => navigate(-1)}
             className="bg-green-500 text-white border-green-500 dark:hover:bg-gray-900 hover:bg-white hover:text-green-500 w-16 pt-1 rounded-md transition-colors duration-200 mb-4"
@@ -169,7 +170,7 @@ export default function TurfSingle() {
                   {turf.city}, {turf.dist}, Kerala
                 </p>
               </div>
-              <div className="p-4 rounded-lg shadow-md bg-white dark:bg-gray-800 min-h-60">
+              <div className="hidden md:block p-4 rounded-lg shadow-md bg-white dark:bg-gray-800 min-h-60">
                 {latitude && longitude && !seen ? (
                   <MapComponent latitude={latitude} longitude={longitude} />
                 ) : null}
@@ -183,6 +184,7 @@ export default function TurfSingle() {
               {seen && <Review toggle={togglePop} turf_id={turfid} />}
             </div>
           </section>
+        </div>
         </>
       )}
     </>

@@ -28,7 +28,7 @@ export default function Center() {
   return (
     <>
       {isLoading ? (
-        <section className="flex flex-col dark:bg-gray-900 p-4">
+        <section className="flex flex-col dark:bg-gray-900  mt-20 md:mt-0 p-4">
           <div className="flex flex-col md:flex-row justify-start gap-5 items-center mb-5 p-4 h-16 dark:bg-gray-900">
             <div className="flex flex-row justify-between items-center dark:border-slate-700 dark:bg-gray-900 bg-white shadow-md rounded-md w-full md:w-1/2 p-2">
               <input
@@ -43,7 +43,7 @@ export default function Center() {
                 </span>
               </button>
             </div>
-            <div className="flex flex-col items-center justify-center text-md dark:text-gray-300 text-slate-600 font-thin">
+            <div className="hidden md:flex flex-col items-center justify-center text-md dark:text-gray-300 text-slate-600 font-thin">
               <p className="bg-gray-300 dark:bg-gray-700 h-4 w-40 md:w-60 rounded-md"></p>
               <p className="bg-gray-300 dark:bg-gray-700 h-4 w-60 md:w-80 mt-2 rounded-md"></p>
             </div>
@@ -66,7 +66,7 @@ export default function Center() {
           </div>
         </section>
       ) : (
-        <section className="flex flex-col dark:bg-gray-900 p-4">
+        <section className="flex flex-col dark:bg-gray-900  mt-20 md:mt-0 p-4">
           <div className="flex flex-col md:flex-row justify-start gap-5 items-center mb-5 p-4 h-16 dark:bg-gray-900">
             <div className="flex flex-row justify-between items-center dark:border-slate-700 dark:bg-gray-800 bg-white shadow-md rounded-md w-full md:w-1/2 p-2">
               <input
@@ -81,12 +81,12 @@ export default function Center() {
                 </span>
               </button>
             </div>
-            <div className="flex flex-col items-center justify-center text-md dark:text-gray-300 text-slate-600 font-thin">
-              <p>
+            <div className="hidden md:flex flex-col  items-center justify-center text-md dark:text-gray-300 text-slate-600 font-thin">
+              <p className="text-xs md:text-md"> 
                 Discover the perfect turf for your next game or event! At
                 BookmyTurf,
               </p>
-              <p>
+              <p className="text-xs md:text-md">
                 we bring you a comprehensive list of top-quality turfs right at
                 your fingertips.
               </p>
