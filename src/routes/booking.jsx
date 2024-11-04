@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../features/cart/cartslice";
 import axiosInstance from "../utils/axiosInstance";
-import { Button } from "@mui/material";
 import { filterTimeslots } from "../hooks/useAvailableSlots";
 
 export default function Booking() {
@@ -355,7 +354,7 @@ export default function Booking() {
 
             <Link
               to={"/root/checkout"}
-              state={{ turf: turfname }}
+              state={{ turf: turfname , turfid }}
               className="dark:bg-green-800 font-semibold flex flex-row justify-center items-center gap-1 w-full p-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-200"
             >
               Proceed to checkout

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import Turf from "../components/turf";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axiosInstance from "../utils/axiosInstance";
+import { clearTurfs } from "../features/sortedTurfs/sortedTurfsSlice";
 export default function Center() {
   const turfsorted = useSelector((state) => state.turfs.SortedTurf);
+  const dispatch = useDispatch();
   const [turfListing, setList] = useState([]);
   const [turfs, setturf] = useState([]);
   const [isLoading, setLoading] = useState(true);
@@ -93,12 +95,14 @@ export default function Center() {
             </div>
           </div>
 
-          {turfListing.length > 0 && (
+          {turfListing && turfListing.length > 0 && (
             <>
               <div className="flex justify-between items-center gap-5 py-4 px-5">
                 <h3 className="text-lg text-gray-500">Results</h3>
                 <button
-                  onClick={() => setList("")}
+                  onClick={() =>{ 
+                    dispatch(clearTurfs())
+                    setList("")}}
                   className="text-sm text-gray-500"
                 >
                   Clear Search

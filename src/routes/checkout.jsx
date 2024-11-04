@@ -102,7 +102,7 @@ export default function Checkout() {
       ) : (
         <div className="mt-28 md:mt-0">
           <button
-            onClick={(e) => {
+            onClick={() => {
               navigate(-1);
             }}
             className="bg-green-500 text-white w-16 pt-1 rounded-md shadow-md hover:bg-green-600 transition duration-200"

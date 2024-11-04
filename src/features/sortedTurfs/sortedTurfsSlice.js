@@ -10,10 +10,14 @@ export const sortedTurfSlice = createSlice({
     setSortedTurfs : (state,action)=>{
          state.SortedTurf = action.payload.sorted
          state.city = action.payload.city.name
+    },
+    clearTurfs : (state)=>{
+      state.SortedTurf = null;
+      state.city = null;
     }
   }
 })
-export const{setSortedTurfs} = sortedTurfSlice.actions;
+export const{setSortedTurfs , clearTurfs} = sortedTurfSlice.actions;
 
 export const getSortedTurfs = (city) => async (dispatch) => {
   try {
@@ -21,8 +25,9 @@ export const getSortedTurfs = (city) => async (dispatch) => {
     const response = await axiosInstance.get(
       `/api/user/turfs?lat=${lat}&lon=${lon}`
     );
+    const activeTurfs = response.data.turfs.filter(item=>item.isActive === true)
     
-    dispatch(setSortedTurfs({sorted : response.data.turfs,
+    dispatch(setSortedTurfs({sorted : activeTurfs,
       city : city
     }));
   } catch (err) {

@@ -85,7 +85,7 @@ export default function Accountadmin() {
         <LoadingScreen message={message} onclick={closeLoadingScreen} />
       ) : (
         <section className="flex flex-col md:flex-row p-3 gap-4 min-h-screen bg-white dark:bg-gray-800">
-          <div className="flex flex-col gap-6 md:w-1/4 w-full items-center border-r-2 md:p-5 p-3 bg-white dark:bg-gray-800 shadow-md rounded-lg">
+          <div className="flex flex-col gap-6 md:w-1/4 w-full items-center border-r-2 md:p-5 mt-24 md:mt-0 p-3 bg-white dark:bg-gray-800 shadow-md rounded-lg">
             <span className="material-symbols-outlined text-4xl text-green-600">
               mood
             </span>
@@ -128,7 +128,7 @@ export default function Accountadmin() {
 
           <div className="flex-grow w-full md:p-5 p-3 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg">
             {view === "transaction" && (
-              <div className="flex flex-col gap-4 p-3 dark:bg-gray-800">
+              <div className="flex flex-col gap-4 p-3 text-xs md:text-lg dark:bg-gray-800">
                 {payments && payments.length > 0 ? (
                   payments.map((item, index) => (
                     <div
