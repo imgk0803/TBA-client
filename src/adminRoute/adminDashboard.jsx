@@ -60,8 +60,8 @@ export default function AdminDashboard(){
     return (
         <>{isLoading ? <LoadingScreen message={ message } onclick={closeLoadingScreen}/> :
             <section className="flex flex-col gap-5 p-4">
-                <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-                    <div className="flex flex-row w-full md:w-1/2 border dark:border-gray-600 shadow-md dark:bg-gray-900 rounded-md overflow-hidden">
+                <div className="flex flex-col md:flex-row gap-4 items-center justify-between mt-24 md:mt-0">
+                    <div className="flex flex-row w-full  md:w-1/2 border dark:border-gray-600 shadow-md dark:bg-gray-900 rounded-md overflow-hidden">
                         <input 
                             onChange={(e) => setSearchTerm(e.target.value)}
                             className="p-2 w-full dark:bg-gray-900 outline-none" 
@@ -74,7 +74,7 @@ export default function AdminDashboard(){
                             <span className="material-symbols-outlined">search</span>
                         </button>
                     </div>
-                    <div className="flex flex-row justify-between items-center gap-3">
+                    <div className="flex flex-col w-full md:w-1/5 md:flex-row md:justify-between md:items-center gap-2 md:gap-3">
                     <Link 
                         to={'/root/createturf'} 
                         className="p-2 w-full md:w-auto text-center bg-green-500 hover:bg-green-600 rounded-md text-white">
@@ -83,7 +83,7 @@ export default function AdminDashboard(){
                     <button 
                         disabled={role !== 'admin'} 
                         onClick={togglePop} 
-                        className={`p-2 w-full md:w-auto text-center ${role === 'admin' ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-400'} rounded-md text-white`}
+                        className={`p-2 w-full  md:w-auto  md:text-center ${role === 'admin' ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-400'} rounded-md text-white`}
                     >
                         Add Manager
                     </button>

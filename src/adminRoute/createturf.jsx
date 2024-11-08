@@ -51,7 +51,7 @@ export default function AddTurf(){
     return (
         <>{isLoading ? <LoadingScreen message={message} onclick={closeLoadingScreen} /> :
 
-          <section className="p-5 dark:bg-gray-900 min-h-screen">
+          <section className="p-5 dark:bg-gray-900 min-h-screen mt-24 md:mt-0">
             <button
                 onClick={() => navigate(-1)}
                 className="bg-green-500 text-white w-16 pt-1 rounded-md shadow-md hover:bg-green-600 transition duration-200">
